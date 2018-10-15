@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Sliding Puzzle</title>
-    <script src="sliding-puzzle.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
+    <div id="slidingPuzzleWrapper">
+        <table id="slidingPuzzle"></table>
+    </div>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let game = new SlidingPuzzle();
-        game.createBoard();
-    });
-</script>
+<script src="puzzle.js"></script>
 </html>
