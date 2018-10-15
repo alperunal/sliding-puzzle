@@ -1,5 +1,14 @@
 (function (imagePath: string, rows: number, cols: number) {
-    'use strict';
+
+    interface IPoint {
+        row: number;
+        col: number;
+    }
+
+    interface ITile {
+        position: IPoint;
+        empty: boolean;
+    }
 
     function shuffle(a: any[]): void {
         for (let i = a.length - 1; i > 0; i--) {
@@ -15,7 +24,7 @@
     }
 
     class SlidingPuzzle {
-        board = [];
+        board: any[] = [];
         private rows: number;
         private cols: number;
         private readonly DIRECTIONS = [
@@ -61,7 +70,9 @@
                     td.addEventListener('click', this.move.bind(this, i, j));
                     tr.appendChild(td);
                 }
-                table.appendChild(tr);
+                if(table) {
+                    table.appendChild(tr);
+                }
             }
             this.draw();
         }
@@ -73,13 +84,15 @@
             for(let i=0; i<this.board.length; i++) {
                 for(let j=0; j<this.board[i].length; j++) {
                     const td = document.getElementById(`puzzle${(this.rows * (i)) + (j+1)}`);
-                    td.setAttribute('style', `width: ${width}px; height: ${height}px; background: ${this.board[i][j].empty ? 'none' : "url('" + imagePath + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'}`);
+                    if(td) {
+                        td.setAttribute('style', `width: ${width}px; height: ${height}px; background: ${this.board[i][j].empty ? 'none' : "url('" + imagePath + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'}`);
+                    }
                 }
             }
         }
 
         move(row: number, col: number): void {
-            function change(x: number, y: number, row: number, col: number): void {
+            function change(this: SlidingPuzzle, x: number, y: number, row: number, col: number): void {
                 let temp = this.board[row][col];
                 this.board[row][col] = this.board[row + y][col + x];
                 this.board[row + y][col + x] = temp;
@@ -93,10 +106,13 @@
 
             if(this.isCompleted()) {
                 const wrapper = document.getElementById('slidingPuzzleWrapper');
+                const puzzle = document.getElementById('slidingPuzzle');
                 const img = document.createElement('img');
                 img.setAttribute('src', imagePath);
-                wrapper.removeChild(document.getElementById('slidingPuzzle'));
-                wrapper.appendChild(img);
+                if(wrapper && puzzle){
+                    wrapper.removeChild(puzzle);
+                    wrapper.appendChild(img);
+                }
             } else {
                 this.draw();
             }

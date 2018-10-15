@@ -1,5 +1,4 @@
 (function (imagePath, rows, cols) {
-    'use strict';
     function shuffle(a) {
         for (var i = a.length - 1; i > 0; i--) {
             for (var j = a[i].length - 1; j > 0; j--) {
@@ -53,7 +52,9 @@
                     td.addEventListener('click', this.move.bind(this, i, j));
                     tr.appendChild(td);
                 }
-                table.appendChild(tr);
+                if (table) {
+                    table.appendChild(tr);
+                }
             }
             this.draw();
         };
@@ -62,7 +63,9 @@
             for (var i = 0; i < this.board.length; i++) {
                 for (var j = 0; j < this.board[i].length; j++) {
                     var td = document.getElementById("puzzle" + ((this.rows * (i)) + (j + 1)));
-                    td.setAttribute('style', "width: " + width + "px; height: " + height + "px; background: " + (this.board[i][j].empty ? 'none' : "url('" + imagePath + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'));
+                    if (td) {
+                        td.setAttribute('style', "width: " + width + "px; height: " + height + "px; background: " + (this.board[i][j].empty ? 'none' : "url('" + imagePath + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'));
+                    }
                 }
             }
         };
@@ -80,10 +83,13 @@
             });
             if (this.isCompleted()) {
                 var wrapper = document.getElementById('slidingPuzzleWrapper');
+                var puzzle = document.getElementById('slidingPuzzle');
                 var img = document.createElement('img');
                 img.setAttribute('src', imagePath);
-                wrapper.removeChild(document.getElementById('slidingPuzzle'));
-                wrapper.appendChild(img);
+                if (wrapper && puzzle) {
+                    wrapper.removeChild(puzzle);
+                    wrapper.appendChild(img);
+                }
             }
             else {
                 this.draw();

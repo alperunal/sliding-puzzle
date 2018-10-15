@@ -1,0 +1,23 @@
+{
+  "name": "sliding-puzzle",
+  "version": "1.1.0",
+  "description": "Basic sliding puzzle game",
+  "main": "puzzle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alperunal/sliding-puzzle.git"
+  },
+  "keywords": [
+    "sliding",
+    "puzzle"
+  ],
+  "author": "Alper Unal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alperunal/sliding-puzzle/issues"
+  },
+  "homepage": "https://github.com/alperunal/sliding-puzzle#readme"
+}
