@@ -4,7 +4,8 @@
   "description": "Basic sliding puzzle game",
   "main": "puzzle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/alperunal/sliding-puzzle/issues"
   },
-  "homepage": "https://github.com/alperunal/sliding-puzzle#readme"
+  "homepage": "https://github.com/alperunal/sliding-puzzle#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.0",
+    "file-loader": "^2.0.0",
+    "ts-loader": "^5.2.2",
+    "typescript": "^3.1.3",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
 }

@@ -1,4 +1,7 @@
-(function (imagePath: string, rows: number, cols: number) {
+// @ts-ignore
+import PuzzleImage from './assets/monks.jpg';
+
+(function (rows: number, cols: number) {
 
     interface IPoint {
         row: number;
@@ -35,11 +38,14 @@
         ];
         image = new Image();
 
-        constructor(path: string, rows: number, cols: number) {
+        constructor(rows: number, cols: number) {
             this.rows = rows;
             this.cols = cols;
-            this.image.src = path;
-            this.initializeBoard();
+            this.image.onload = this.initializeBoard.bind(this);
+            this.image.onerror = function(error: ErrorEvent){
+                console.log(error);
+            }
+            this.image.src = PuzzleImage;
         }
 
         initializeBoard(): void {
@@ -57,10 +63,7 @@
             }
             this.board[this.rows-1][this.cols-1].empty = true;
             shuffle(this.board);
-            this.createBoard();
-        }
 
-        createBoard(): void {
             const table = document.getElementById('slidingPuzzle');
             for(let i=0; i<this.rows; i++) {
                 const tr = document.createElement('tr');
@@ -85,7 +88,7 @@
                 for(let j=0; j<this.board[i].length; j++) {
                     const td = document.getElementById(`puzzle${(this.rows * (i)) + (j+1)}`);
                     if(td) {
-                        td.setAttribute('style', `width: ${width}px; height: ${height}px; background: ${this.board[i][j].empty ? 'none' : "url('" + imagePath + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'}`);
+                        td.setAttribute('style', `width: ${width}px; height: ${height}px; background: ${this.board[i][j].empty ? 'none' : "url('" + PuzzleImage + "') no-repeat -" + (this.board[i][j].position.col * width) + 'px -' + (this.board[i][j].position.row * height) + 'px'}`);
                     }
                 }
             }
@@ -108,7 +111,7 @@
                 const wrapper = document.getElementById('slidingPuzzleWrapper');
                 const puzzle = document.getElementById('slidingPuzzle');
                 const img = document.createElement('img');
-                img.setAttribute('src', imagePath);
+                img.setAttribute('src', PuzzleImage);
                 if(wrapper && puzzle){
                     wrapper.removeChild(puzzle);
                     wrapper.appendChild(img);
@@ -131,6 +134,6 @@
         }
     }
 
-    return new SlidingPuzzle(imagePath, rows, cols);
+    return new SlidingPuzzle(rows, cols);
 
-})('./assets/monks.jpg', 3, 3);
+})(3, 3);
