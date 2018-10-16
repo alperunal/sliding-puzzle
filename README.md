@@ -1,5 +1,7 @@
 # Sliding Puzzle Game
 
+![](sliding-puzzle.gif)
+
 ## Install
 
     $ git clone https://github.com/alperunal/sliding-puzzle.git
